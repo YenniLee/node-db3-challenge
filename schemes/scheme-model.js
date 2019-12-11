@@ -28,11 +28,19 @@ function remove(id) {
     return db('schemes').where({ id }).del();
 };
 
+function addStep(stepData, scheme_id) {
+    return db('steps')
+        .join('schemes', 'schemes.id', 'steps.scheme_id')
+        .where({ scheme_id })
+        .insert(stepData)
+};
+
 module.exports = {
     find,
     findById,
     findSteps,
     add, 
     update,
-    remove
+    remove, 
+    addStep
 };
